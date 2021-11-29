@@ -4,50 +4,59 @@ import java.util.Scanner;
 
 public class DegreeService {
 	private static ImpInterface myInterface = new ImpInterface();
+	private static Degrees[]  myDgr = new Degrees[4];
 	
 			
 	public static void inputNum() {
 		Scanner in = new Scanner(System.in);
 
-		int intBT = 0;
-		int intMT = 0;
-		int intMS = 0;
-		int intPhD = 0;
+		// ini array
+		for(int i=0; i<myDgr.length;i++){
+			myDgr[i] = new Degrees();
+		}
+		
+		
 		int intTotal = 0;
 
 		try {
 	
 			System.out.println("Enter the number of B.Tech:");
-			intBT = in.nextInt();
-			intTotal = myInterface.add(intTotal, intBT);
+			myDgr[0].setNumber(in.nextInt()) ;
 			
 			
 			System.out.println("Enter the number of M.Tech:");
-			intMT = in.nextInt();
-			intTotal = myInterface.add(intTotal, intMT);
+			myDgr[1].setNumber(in.nextInt()) ;
 			
 			
 			System.out.println("Enter the number of M.S:");
-			intMS = in.nextInt();
-			intTotal = myInterface.add(intTotal, intMS);
-			
+			myDgr[2].setNumber(in.nextInt()) ;
 	
+
 			System.out.println("Enter the number of Ph.D:");
-			intPhD = in.nextInt();
-			intTotal = myInterface.add(intTotal, intPhD);
+			myDgr[3].setNumber(in.nextInt()) ;
 			
 		} catch(Exception e) {
-	        System.out.println("Wrong input!");
+	        System.out.printf("Wrong input: %s", e.getMessage());
 	        
 	        System.exit(1);
 		}
 
-        System.out.printf("The total student population is %d\n", intTotal);
 
-        System.out.printf("The B.Tech. percentage is %2.2f\n", (float)intBT*100/intTotal);
-        System.out.printf("The M.Tech. percentage is %2.2f\n", (float)intMT*100/intTotal);
-        System.out.printf("The M.S percentage is %2.2f\n", (float)intMS*100/intTotal);
-        System.out.printf("The Ph.D percentage is %2.2f\n", (float)intPhD*100/intTotal);
+		for(Degrees d: myDgr){
+			intTotal = myInterface.add(intTotal, d.getNumber());
+		}
+		
+
+		System.out.printf("The total student population is %d.\n", intTotal);
+
+        System.out.printf("The B.Tech. percentage is %2.2f.\n", (float)myDgr[0].getNumber()*100/intTotal);
+        System.out.printf("The M.Tech. percentage is %2.2f.\n", (float)myDgr[1].getNumber()*100/intTotal);
+        System.out.printf("The M.S percentage is %2.2f.\n", (float)myDgr[2].getNumber()*100/intTotal);
+        System.out.printf("The Ph.D percentage is %2.2f.\n", (float)myDgr[3].getNumber()*100/intTotal);
+        
+        
+        //close
+        in.close();
 	}
 	
 	public static void rndNum() {
