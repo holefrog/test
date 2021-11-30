@@ -7,6 +7,8 @@ import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.Scanner;
 
 
@@ -51,6 +53,27 @@ class DegreeServiceTest {
 		//close
         in.close();
 	}
+
+	@Test
+	private static void inputTest() throws Exception {
+		String dataIn = "131\n225\n333\n1124\n";
+		InputStream stdIn = System.in;
+		
+		
+		// input
+
+		try {
+			System.setIn(new ByteArrayInputStream(dataIn.getBytes()));
+			inputNum();
+	
+		} catch (Exception e) {
+	        System.out.printf("Wrong input: %s", e.getMessage());
+				
+		} finally {
+			System.setIn(stdIn);
+
+		}
+	}
 	
 	
 	// calcPerctage
@@ -66,7 +89,7 @@ class DegreeServiceTest {
 	
 
 	@Test
-	void testMain() {
+	void testMain() throws Exception {
 		int intTotal, intRnd;
 		
 		//  mock
@@ -84,7 +107,8 @@ class DegreeServiceTest {
 		
 		
 		// inputNum
-		inputNum();
+		// inputNum();
+		inputTest();
 		
 
 		
